@@ -164,11 +164,11 @@ void opt_memcpy(void *dst, const void *src, size_t n)
         dst = dst + 128;
         src = src + 128;
     }
+#endif
     if (n >= 20000) {
         for ( ; n >= 128; n -= 128) {
             mov128_up(dst, src);
             mov128_u(dst, src);
-#endif
             dst = dst + 128;
             src = src + 128;
         }
