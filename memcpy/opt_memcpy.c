@@ -137,15 +137,15 @@ void opt_memcpy(void *dst, const void *src, size_t n)
 {
     // IMPORTANT(stefanos): For now, n > 64;
     //assert(n > 64);
-	if (n < 128) {
+    if (n < 128) {
         // IMPORTANT(stefanos): DO NOT DO THIS! It will overwrite previous data,
         // as n < 128.
-		//mov128_u((uint8_t *)dst - 128 + n, (const uint8_t *)src - 128 + n);
+        //mov128_u((uint8_t *)dst - 128 + n, (const uint8_t *)src - 128 + n);
         //
         mov64_u(dst, src);
-		mov64_u(dst - 64 + n, src - 64 + n);
+        mov64_u(dst - 64 + n, src - 64 + n);
         return;
-	}
+    }
 
     // Align to 32-byte boundary. Move what is needed.
     int mod = (uintptr_t)src % 32;
@@ -201,19 +201,19 @@ void opt_memcpy(void *dst, const void *src, size_t n)
     // 64-byte portions.
     // <= 3 times loop.
     for (size_t i = n / 64; i; --i) {
-		mov64_u(dst, src);
-		n -= 64;
-		dst = dst + 64;
-		src = src + 64;
+        mov64_u(dst, src);
+        n -= 64;
+        dst = dst + 64;
+        src = src + 64;
     }
 
     // 16-byte portions.
     // <= 3 times loop.
     for (size_t i = n / 16; i; --i) {
-		mov16_u(dst, src);
-		n -= 16;
-		dst = dst + 16;
-		src = src + 16;
+        mov16_u(dst, src);
+        n -= 16;
+        dst = dst + 16;
+        src = src + 16;
     }
 
     // Copy remaining < 16 bytes.
