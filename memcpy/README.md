@@ -12,3 +12,8 @@ The `opt_memcpy_gcc_asm.d` is the result ASM when `opt_memcpy.c` is compiled wit
 comparison with my ASM.
 
 The `opt_memcpy_asm.d` is a hand-written ASM which is based on the same C source.
+
+The C version is different for Intel and AMD, as there were significant differences on my benchmarks. The AMD one
+uses only SSE.
+
+The ASM versions are only the Intel version due to limited time.
